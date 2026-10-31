@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
 
 # Configuración básica de la página
 st.set_page_config(page_title="Notificador de Calidad PT", page_icon="📊", layout="wide")
@@ -62,9 +64,12 @@ if archivo_subido is not None:
             # Mostrar una vista previa de los datos
             st.dataframe(df.head())
             
-            # --- AQUÍ IRA EL SIGUIENTE PASO: GRÁFICOS Y ANÁLISIS ---
+            # 2. GRÁFICOS INTERACTIVOS (PLOTLY)
+            st.markdown("---")
+            st.subheader("📊 Comportamiento de los Analitos (Cuantitativos)")
             
-    except pd.errors.EmptyDataError:
-        st.error("El archivo está completamente vacío o no tiene el formato correcto.")
-    except Exception as e:
-        st.error(f"Ocurrió un problema inesperado al leer el archivo: {e}")
+            # Lista base de analitos cuantitativos
+            analitos_cuantitativos = [
+                "Grados_Brix", "Volumenes_CO2", "pH", "Acidez_Titulable", 
+                "Volumen_Llenado", "Presion_Interna", "Mohos_Levaduras", "Mesofilos_Aerobios"
+            ]
